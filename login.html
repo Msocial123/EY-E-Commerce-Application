@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ShopSphere</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f6fa;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            height: 75px;
+            background: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #222;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #ff6b35;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #444;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+
+        /* Main Layout */
+        .main-container {
+            min-height: calc(100vh - 135px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 45px 20px;
+        }
+
+        .login-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1050px;
+            width: 100%;
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+        }
+
+        /* Left Banner */
+        .login-banner {
+            background: linear-gradient(145deg, #171717, #353535);
+            color: white;
+            padding: 60px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-banner::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: rgba(255,107,53,0.16);
+            top: -100px;
+            right: -100px;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner-tag {
+            display: inline-block;
+            background: rgba(255,107,53,0.18);
+            color: #ff9b76;
+            padding: 9px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .login-banner h1 {
+            font-size: 39px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .login-banner h1 span {
+            color: #ff7648;
+        }
+
+        .login-banner p {
+            color: #c9c9c9;
+            font-size: 14px;
+            line-height: 1.9;
+            margin-bottom: 35px;
+        }
+
+        .banner-features {
+            list-style: none;
+        }
+
+        .banner-features li {
+            margin-bottom: 17px;
+            font-size: 14px;
+            color: #e4e4e4;
+        }
+
+        .banner-features li span {
+            color: #ff7648;
+            margin-right: 10px;
+        }
+
+        .banner-footer {
+            margin-top: 45px;
+            color: #999;
+            font-size: 12px;
+        }
+
+        /* Login Form */
+        .login-form-section {
+            padding: 55px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .welcome-text {
+            font-size: 13px;
+            color: #ff6b35;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .login-form-section h2 {
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 49px;
+            padding: 0 15px;
+            border: 1px solid #dedede;
+            border-radius: 8px;
+            outline: none;
+            font-size: 13px;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 3px rgba(255,107,53,0.10);
+        }
+
+        .password-input {
+            padding-right: 65px !important;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: #ff6b35;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 12px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #666;
+        }
+
+        .form-options a,
+        .signup-text a {
+            color: #ff6b35;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 50px;
+            background: #ff6b35;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #e95825;
+            transform: translateY(-2px);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #aaa;
+            font-size: 12px;
+            margin: 25px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e8e8e8;
+        }
+
+        .google-btn {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #dedede;
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .google-btn:hover {
+            background: #f8f8f8;
+        }
+
+        .signup-text {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 28px;
+        }
+
+        .message {
+            display: none;
+            padding: 12px;
+            border-radius: 7px;
+            margin-bottom: 18px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .message.error {
+            display: block;
+            background: #fff0ed;
+            color: #d13d24;
+        }
+
+        /* Footer */
+        footer {
+            height: 60px;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #999;
+            font-size: 12px;
+        }
+
+        @media(max-width: 768px) {
+            .login-wrapper {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+            }
+
+            .login-banner {
+                padding: 35px 30px;
+            }
+
+            .login-banner h1 {
+                font-size: 29px;
+            }
+
+            .login-form-section {
+                padding: 40px 30px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media(max-width: 400px) {
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .login-form-section {
+                padding: 35px 20px;
+            }
+
+            .form-options {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <a href="index.html" class="logo">Shop<span>Sphere</span></a>
+
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Login Container -->
+    <main class="main-container">
+
+        <div class="login-wrapper">
+
+            <!-- Left Banner -->
+            <section class="login-banner">
+                <div class="banner-content">
+
+                    <span class="banner-tag">WELCOME TO SHOPSPHERE</span>
+
+                    <h1>
+                        Discover Your
+                        <span>Style.</span><br>
+                        Shop Smarter.
+                    </h1>
+
+                    <p>
+                        Your favorite shopping destination is just
+                        one login away. Explore fashion, accessories,
+                        watches and more with ShopSphere.
+                    </p>
+
+                    <ul class="banner-features">
+                        <li><span>✓</span> Exclusive Member Offers</li>
+                        <li><span>✓</span> Personalized Shopping Experience</li>
+                        <li><span>✓</span> Secure & Easy Checkout</li>
+                        <li><span>✓</span> Track Your Orders Anytime</li>
+                    </ul>
+
+                    <div class="banner-footer">
+                        Your Shopping Journey Starts Here.
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Right Login Form -->
+            <section class="login-form-section">
+
+                <div class="welcome-text">YOUR ACCOUNT</div>
+
+                <h2>Welcome Back!</h2>
+
+                <p class="subtitle">
+                    Please enter your details to sign in.
+                </p>
+
+                <div id="message" class="message"></div>
+
+                <form id="loginForm">
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+
+                        <div class="input-wrapper">
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                autocomplete="email"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+
+                        <div class="input-wrapper">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="password-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                minlength="8"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                id="togglePassword"
+                            >
+                                Show
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+
+                        <label class="remember">
+                            <input type="checkbox" id="remember">
+                            Remember Me
+                        </label>
+
+                        <a href="forgot-password.html">
+                            Forgot Password?
+                        </a>
+
+                    </div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">
+                        Sign In
+                    </button>
+
+                </form>
+
+                <div class="divider">OR CONTINUE WITH</div>
+
+                <button type="button" class="google-btn" id="googleBtn">
+                    Continue with Google
+                </button>
+
+                <p class="signup-text">
+                    Don't have an account?
+                    <a href="register.html">Create Account</a>
+                </p>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        © 2026 ShopSphere. All Rights Reserved.
+    </footer>
+
+    <script>
+
+        // Show / Hide Password
+        const passwordInput = document.getElementById("password");
+        const togglePassword = document.getElementById("togglePassword");
+
+        togglePassword.addEventListener("click", function () {
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                togglePassword.textContent = "Hide";
+            } else {
+                passwordInput.type = "password";
+                togglePassword.textContent = "Show";
+            }
+
+        });
+
+        // Login Form
+        const loginForm = document.getElementById("loginForm");
+        const message = document.getElementById("message");
+        const loginBtn = document.getElementById("loginBtn");
+
+        loginForm.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = passwordInput.value;
+            const remember = document.getElementById("remember").checked;
+
+            message.className = "message";
+            message.textContent = "";
+
+            if (!email || !password) {
+                showMessage("Please enter your email and password.");
+                return;
+            }
+
+            if (password.length < 8) {
+                showMessage("Password must contain at least 8 characters.");
+                return;
+            }
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Signing In...";
+
+            try {
+
+                /*
+                  BACKEND INTEGRATION:
+
+                  Replace this section with your authentication API.
+
+                  Example:
+
+                  const response = await fetch(
+                      "http://localhost:8000/api/auth/login",
+                      {
+                          method: "POST",
+                          headers: {
+                              "Content-Type": "application/json"
+                          },
+                          body: JSON.stringify({
+                              email: email,
+                              password: password
+                          })
+                      }
+                  );
+
+                  const data = await response.json();
+
+                  if (!response.ok) {
+                      throw new Error(data.message || "Login failed");
+                  }
+
+                  // Store the authentication token securely.
+                  // Prefer secure HttpOnly cookies for production.
+
+                  window.location.href = "index.html";
+                */
+
+                showMessage(
+                    "Login UI is ready. Connect your backend authentication API to enable actual sign-in.",
+                    "error"
+                );
+
+            } catch (error) {
+
+                showMessage(error.message || "Unable to sign in.");
+
+            } finally {
+
+                loginBtn.disabled = false;
+                loginBtn.textContent = "Sign In";
+
+            }
+
+        });
+
+        function showMessage(text, type = "error") {
+
+            message.textContent = text;
+            message.className = "message " + type;
+
+        }
+
+        // Google Login Placeholder
+        document.getElementById("googleBtn").addEventListener("click", function () {
+
+            showMessage(
+                "Google authentication needs to be configured with Google OAuth."
+            );
+
+        });
+
+    </script>
+
+</body>
+</html>
